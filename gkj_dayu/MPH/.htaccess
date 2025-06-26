@@ -1,0 +1,14 @@
+# Mengaktifkan mod_rewrite
+RewriteEngine On
+
+# Menetapkan base directory (sesuaikan dengan path root project Anda)
+RewriteBase /gkj_dayu/mph/
+
+# Menghilangkan index.php dari URL
+RewriteCond %{THE_REQUEST} \s/index\.php [NC]
+RewriteRule ^index\.php(.*)$ $1 [R=301,NC,L]
+
+# Meneruskan permintaan yang tidak mengarah ke file atau folder fisik ke index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]

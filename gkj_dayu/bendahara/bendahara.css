@@ -1,0 +1,316 @@
+body {
+    overflow-x: hidden;
+    /* font-family: "Helvetica Neue", Arial, sans-serif; */
+}
+
+.navbar {
+    background-color: #CCDEF4;
+    color: #41406D;
+    font-weight: bold;
+}
+
+.navbar-brand {
+    color: #41406D
+}
+
+.nav-link {
+    margin: 0px 0px 0px 30px;
+    /* color : yellow; */
+}
+
+.nav-link.active {
+    color: #0870B6 !important;
+}
+
+.dropdown-item.active {
+    color: red !important;
+}
+
+.nav-link:hover {
+    color: #1F5ACD !important;
+}
+
+/* .nav-link:active {
+        color: red !important;
+    } */
+
+.dropdown-item {
+    color: #504F82;
+    font-weight: 500;
+
+}
+
+.dropdown-menu {
+    margin-left: 19px;
+}
+
+.dropdown-menu a:hover {
+    color: #1F5ACD !important;
+}
+
+.dropdown-menu a:active,
+.dropdown-menu a:focus {
+    color: #FFFFFF !important;
+    /* Warna putih saat diklik */
+}
+
+/* ion-icon {
+    margin-bottom: -2px;
+    margin-right: -5px;
+} */
+
+.second {
+    width: 100%;
+    background-color: #F1F7FE;
+    padding: 25px;
+    border-radius: 8px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* css for form transaksi*/
+.firstsection {
+    width: 90%;
+    background-color: #F1F7FE;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.secondsection {
+    width: 90%;
+    /* max-width: 600px; */
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #5B8FCD;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    /* margin: 0px; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.firstsection .horizontal,
+.secondsection .horizontal {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.horizontal .form-group {
+    display: flex;
+    flex-direction: column;
+    /* Menyusun label dan input secara vertikal */
+    width: 24%;
+    height: 80px;
+    color: #334D74;
+    font-weight: bold;
+    /* background-color: yellow; */
+}
+
+.horizontal label {
+    display: block;
+    margin-bottom: 8px;
+    color: #334D74;
+    font-weight: bold;
+}
+
+.horizontal input[type="text"],
+.horizontal input[type="email"],
+.horizontal input[type="date"],
+.horizontal input[type="number"] {
+    width: 70%;
+    height: 40%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #676892;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    color: #334D74;
+}
+
+.filter input[type="number"],
+.filter select {
+    border: 1px solid #676892;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    color: #334D74;
+}
+
+.filter label {
+    color:#334D74;
+    font-weight: bold;
+}
+
+.horizontal textarea {
+    color: #334D74;
+}
+
+.horizontal select {
+    height: 50%;
+    margin-bottom: 20px;
+    border: 1px solid #676892;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    color: #334D74;
+}
+
+.horizontal input[type="text"]:focus,
+.horizontal input[type="email"]:focus,
+.horizontal input[type="date"]:focus,
+.horizontal input[type="number"]:focus,
+.horizontal select:focus {
+    border-color: #00796b;
+    outline: none;
+}
+
+.firstsection .button,
+.secondsection .button {
+    width: 10%;
+    height: 30px;
+    background-color: #49749C;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.secondsection .button2 {
+    width: 10%;
+    height: 30px;
+    background-color: #008000;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.firstsection button:hover,
+.secondsection button:hover {
+    background-color: #004d40;
+}
+
+.firstsection label.required::after,
+.secondsection label.required::after {
+    content: " *";
+    color: red;
+}
+
+.firstsection ::placeholder,
+.secondsection ::placeholder {
+    font-style: italic;
+    color: grey;
+}
+
+
+.my-header {
+    padding: 10px;
+    border-radius: 5px;
+    color: #41406D;
+    font-weight: bold;
+}
+
+.my-icon {
+    font-size: 24px;
+    color: #007bff;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.my-text {
+    font-size: 20px;
+    color: #333;
+}
+
+.blockquote-footer {
+    font-style: italic;
+    color: #6c757d;
+}
+
+.row+.row+.row {
+    background-color: #E7F3FE;
+    color: #4485B1;
+    font-weight: 500;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.dataTables_wrapper .row:first-of-type {
+    background-color: #F6F5F5;
+    height: 50px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.small td {
+    background-color: #5B90CD !important;
+    color: #FFFCFC !important;
+    font-weight: 500 !important;
+    font-size: 16px;
+}
+
+.btn-primary:nth-of-type(1) {
+    border: none;
+    font-weight: bold;
+}
+
+.pagination {
+    --bs-pagination-padding-x: 0.75rem;
+    --bs-pagination-padding-y: 0.15rem;
+    --bs-pagination-font-size: 1rem;
+    --bs-pagination-color: var(--bs-link-color);
+    --bs-pagination-bg: var(--bs-body-bg);
+    --bs-pagination-border-width: var(--bs-border-width);
+    --bs-pagination-border-color: var(--bs-border-color);
+    --bs-pagination-border-radius: var(--bs-border-radius);
+    --bs-pagination-hover-color: var(--bs-link-hover-color);
+    --bs-pagination-hover-bg: var(--bs-tertiary-bg);
+    --bs-pagination-hover-border-color: var(--bs-border-color);
+    --bs-pagination-focus-color: var(--bs-link-hover-color);
+    --bs-pagination-focus-bg: var(--bs-secondary-bg);
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    --bs-pagination-active-color: #fff;
+    --bs-pagination-active-bg: #5B90CD !important;
+    --bs-pagination-active-border-color: #0d6efd;
+    --bs-pagination-disabled-color: #4485B1;
+    --bs-pagination-disabled-bg: white !important;
+    --bs-pagination-disabled-border-color: var(--bs-border-color);
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+}
+
+.button-add {
+    border-radius: 25px;
+    background-color: #41406D;
+    height: 40px;
+    width: 180px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.button-add:hover{
+    background-color: #1a233a;
+}
