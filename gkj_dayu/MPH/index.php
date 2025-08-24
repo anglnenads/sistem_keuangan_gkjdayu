@@ -1,4 +1,31 @@
 <?php
+session_start();
+
+// Check if user is logged in and has the correct role. If not, destroy session and redirect.
+if (isset($_SESSION["id_user"])) {
+    $id_user = $_SESSION['id_user'];
+
+    if ($_SESSION["baseurl"] !== 'mph') {
+        // Jika role tidak sesuai, hapus session dan arahkan ke halaman login
+        session_unset();
+        session_destroy();
+         header("Location: ../");
+        exit();
+    }
+} else {
+    // Jika belum login, arahkan ke halaman login
+     header("Location: ../");
+    exit();
+}
+
+// Handle the logout action.
+if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
+    session_unset();
+    session_destroy();
+    header("Location: ../");
+    exit();
+}
+
 include_once("../_function_i/cConnect.php");
 include_once("../_function_i/cView.php");
 include_once("../_function_i/cInsert.php");
@@ -9,72 +36,37 @@ include_once("../_function_i/inc_f_object.php");
 $conn = new cConnect();
 $conn->goConnect();
 
-session_start();
-
-if (empty($_GET["y"])) {
-    $_GET["y"] = $_SESSION["tahun_aktif"];
-}
-
-if (isset($_SESSION["id_user"])) {
-    $id_user = $_SESSION['id_user'];
-} else {
-    // Jika belum login, arahkan ke halaman login
-    header("Location: http://localhost:80/gkj_dayu/");
-    exit();
-}
-
-if ($_SESSION["baseurl"] !== 'mph') {
-    // Jika role tidak sesuai, arahkan ke halaman tidak diizinkan atau logout
-    unset($_SESSION["id_user"]);
-    header("Location: http://localhost:80/gkj_dayu/");
-    exit();
-}
-
-if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
-    // Hapus semua sesi
-    session_unset();
-    session_destroy();
-
-    // Redirect ke halaman login
-    header("Location: http://localhost:80/gkj_dayu/");
-    exit();
-}
-
-//echo "<br><br><br><h1>" . $_GET["y"] . "</h1>";
-echo "<br><br><br>";
-
-
+// STEP 4: Process form submissions and fetch data needed for the page.
 if (isset($_POST['tahun']) && !empty($_POST['tahun'])) {
     $_SESSION["tahun_aktif"] = $_POST['tahun'];
 }
-// Default ke tahun aktif yang tersimpan di sesi
 $tahun_aktif = isset($_SESSION["tahun_aktif"]) ? $_SESSION["tahun_aktif"] : NULL;
 
-$sql = "SELECT id_fiskal, status_aktif, tahun FROM fiskal WHERE tahun = $tahun_aktif";
-$view = new cView();
-$array = $view->vViewData($sql);
+// Initialize variables to avoid errors if queries fail
+$id_fiskal = null;
+$status_aktif_fiskal = 0;
 
-// Cek apakah ada data
-if (!empty($array)) {
-    $row = $array[0];
-    $id_fiskal = $row['id_fiskal'];
-    $status_aktif_fiskal = $row['status_aktif'];
-} else {
-    // Fallback ke tahun terbaru yang aktif jika tidak ditemukan
-    $sql_latest = "SELECT id_fiskal, tahun, status_aktif FROM fiskal WHERE status_aktif = 1 ORDER BY tahun DESC LIMIT 1";
-    $array_latest = $view->vViewData($sql_latest);
+if ($tahun_aktif) {
+    $sql = "SELECT id_fiskal, status_aktif, tahun FROM fiskal WHERE tahun = '$tahun_aktif'";
+    $view = new cView();
+    $array = $view->vViewData($sql);
 
-    if (!empty($array_latest)) {
-        $row_latest = $array_latest[0];
-        $id_fiskal = $row_latest['id_fiskal'];
-        $status_aktif_fiskal = $row_latest['status_aktif'];
-        $tahun_aktif = $row_latest['tahun'];
+    if (!empty($array)) {
+        $row = $array[0];
+        $id_fiskal = $row['id_fiskal'];
+        $status_aktif_fiskal = $row['status_aktif'];
+    } else {
+        $sql_latest = "SELECT id_fiskal, tahun, status_aktif FROM fiskal WHERE status_aktif = 1 ORDER BY tahun DESC LIMIT 1";
+        $array_latest = $view->vViewData($sql_latest);
+        if (!empty($array_latest)) {
+            $row_latest = $array_latest[0];
+            $id_fiskal = $row_latest['id_fiskal'];
+            $status_aktif_fiskal = $row_latest['status_aktif'];
+            $tahun_aktif = $row_latest['tahun']; // Update the active year to the latest found
+        }
     }
 }
 
-?>
-
-<?php
 // Ambil URL path dari permintaan
 $request = $_SERVER['REQUEST_URI'];
 $request = trim($request, '/');
@@ -508,9 +500,6 @@ $segments = explode('/', $request);
 </head>
 
 <body>
-    <?php
-    $baseurl = "localhost/gkj_dayu/mph/";
-    ?>
     <nav class="navbar fixed-top navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"> GKJ DAYU</a>
@@ -657,10 +646,19 @@ $segments = explode('/', $request);
 
 
     <p></p>
+     <p></p>
+        <div style="margin-top: 80px; padding: 20px;"></div>
     <?php
-    // $segments[2]=0;
-    $link = isset($segments[2]) && is_numeric($segments[2]) ? $segments[2] : 0;
-    // $link = $segments[2];
+     $segments = explode("/", trim($_SERVER["REQUEST_URI"], "/"));
+
+        // cari posisi "admin" di URL
+        $posMPH = array_search("mph", $segments);
+
+        // ambil angka setelah "admin" sebagai $link
+        $link = ($posMPH !== false && isset($segments[$posMPH + 1]) && is_numeric($segments[$posMPH + 1]))
+            ? (int) $segments[$posMPH + 1]
+            : 0;
+
 
     switch ($link) {
 

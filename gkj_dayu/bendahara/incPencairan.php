@@ -1,4 +1,9 @@
 <?php
+
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+$host = $_SERVER['HTTP_HOST'];
+$uploadPath = "/uploads/bukti_transfer/";
+
 // update
 if (!empty($_POST["editbtn"])) {
 
@@ -152,6 +157,7 @@ if (!empty($_POST["btnhapus"])) {
                                             <td class="text-center"><?= !empty($data["nama_bank"]) && !empty($data["nama_rekening"]) ? $data["nama_bank"] . " - " . $data["nama_rekening"] : "Cash"; ?></td>
                                             <td class="text-center">
                                                 <?php
+                                                $buktiTransferFile = htmlspecialchars($data["bukti_transfer"] ?? '', ENT_QUOTES, 'UTF-8');
                                                 $datadetail = array(
                                                     array("Bidang", ":", $data["nama_bidang"], 1, ""),
                                                     array("Komisi", ":", $data["nama_komisi"], 1, ""),
@@ -160,7 +166,7 @@ if (!empty($_POST["btnhapus"])) {
                                                     array("Keterangan Pencairan", ":", $data["keterangan"], 1, ""),
                                                     array("Jumlah Pencairan", ":", 'Rp. ' . number_format($data["jumlah_pencairan"], 0, ',', '.'), 1, ""),
                                                     array("Tanggal Pencairan", ":", date('d-m-Y', strtotime($data["tanggal_pencairan"])), 1, ""),
-                                                    array("Bukti Transfer/Pencairan", ":", "<a href='http://localhost:80/gkj_dayu/uploads/bukti_transfer/" . htmlspecialchars($data["bukti_transfer"]) . "' target='_blank'>" . htmlspecialchars($data["bukti_transfer"]) . "</a>", 1),
+                                                array("Bukti Transfer/Pencairan", ":", "<a href='{$protocol}://{$host}{$uploadPath}{$buktiTransferFile}' target='_blank'>{$buktiTransferFile}</a>", 1),
                                                     array("Dicairkan oleh", ":", $data["nama"] . " - " . $data["jbtn"], 1),
                                                 );
                                                 _CreateWindowModalDetil($cnourut, "view", "viewsasaran-form", "viewsasaran-button", "lg", 600, "Detail Data Pencairan Dana#Data Pencairan $cnourut", "", $datadetail, "", "23", "");

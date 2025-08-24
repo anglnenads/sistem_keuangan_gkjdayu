@@ -1,4 +1,9 @@
 <?php
+
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+$host = $_SERVER['HTTP_HOST'];
+$uploadPath = "/uploads/bukti_transfer/";
+
 if (empty($_POST["tb_bulan"])) {
     $_POST["tb_bulan"] = 0;
 } else {
@@ -130,13 +135,14 @@ if (empty($_POST["tb_bulan"])) {
                                     </td>
                                     <td class="text-center">
                                         <?php
+                                        $buktiFile = htmlspecialchars($data["bukti_pengeluaran"] ?? '', ENT_QUOTES, 'UTF-8');
                                         $datadetail = array(
                                             array("Tanggal Pengeluaran", ":", date('d-m-Y', strtotime($data["tanggal_pengeluaran"])), 1),
                                             array("Jenis Pengeluaran", ":", $data["jenis_pengeluaran"], 1, ""),
                                             array("Akun", ":", $data["nama_akun"], 1, ""),
                                             array("Jumlah Pengeluaran", ":", "Rp. " . number_format($data["jumlah"], 0, ',', '.'), 1),
                                             array("Keterangan", ":", $data["keterangan"], 1),
-                                            array("Bukti Pengeluaran", ":", "<a href='http://localhost:80/gkj_dayu/uploads/bukti_transfer/" . htmlspecialchars($data["bukti_pengeluaran"]) . "' target='_blank'>" . htmlspecialchars($data["bukti_pengeluaran"]) . "</a>", 1),
+                                            array("Bukti Pengeluaran", ":", "<a href='{$protocol}://{$host}{$uploadPath}{$buktiFile}' target='_blank'>{$buktiFile}</a>", 1),
                                             array("Diinput oleh", ":", $data["nama"] . " - " . $data["jbtn"], 1),
                                             array("Tanggal Pencatatan", ":", date('d-m-Y', strtotime($data["tanggal_catat"])), 1),
                                             array("Status Validasi", ":", $data["status"], 1, ""),
@@ -183,17 +189,17 @@ if (empty($_POST["tb_bulan"])) {
                     </tr>
                     <tr>
                         <td colspan="3" style="color:#5B90CD; font-weight:bolder">Total Pengeluaran Keseluruhan</td>
-                        <td class="text-end" style="color:#483d8b; font-weight:bolder"><?= number_format($total_keseluruhan, 0, ',', '.') ?></td>
+                        <td class="text-end" style="color:#483d8b; font-weight:bolder"><?= number_format((float) ($total_keseluruhan ?? 0), 0, ',', '.') ?></td>
                         <td colspan="3"></td>
                     </tr>
                     <tr>
                         <td colspan="3" style="color:#2e8b57; font-weight:bolder">Total Pengeluaran Tervalidasi</td>
-                        <td class="text-end" style="color:#2e8b57; font-weight:bolder"><?= number_format($saldo_tervalidasi, 0, ',', '.') ?></td>
+                        <td class="text-end" style="color:#2e8b57; font-weight:bolder"><?= number_format((float) ($saldo_tervalidasi ?? 0), 0, ',', '.') ?></td>
                         <td colspan="3"></td>
                     </tr>
                     <tr>
                         <td colspan="3" style="color:#808080; font-weight:bolder">Total Pengeluaran Belum Tervalidasi</td>
-                        <td class="text-end" style="color:#808080; font-weight:bolder"><?= number_format($total_keseluruhan - $saldo_tervalidasi, 0, ',', '.') ?></td>
+                        <td class="text-end" style="color:#808080; font-weight:bolder"><?= number_format((float) ($total_keseluruhan - $saldo_tervalidasi ?? 0), 0, ',', '.') ?></td>
                         <td colspan="3"></td>
                     </tr>
                 </table>

@@ -1,36 +1,12 @@
 <?php
 
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+$host = $_SERVER['HTTP_HOST'];
+$uploadPath = "//uploads/lpj/";
+
 //insert sisa dana
 if (!empty($_POST["savebtn"])) {
 
-    // if ($_POST["jenis"] == 'Kelebihan Dana') {
-    //     $targetDir = '../uploads/bukti_penerimaan/';
-    //     $targetDir = '../uploads/lpj/';
-    // } else {
-    //     $targetDir = '../uploads/lpj/';
-    //     $targetDir = '../uploads/bukti_transfer/';
-    // }
-
-    // if (!is_dir($targetDir)) {
-    //     mkdir($targetDir, 0777, true);
-    // }
-
-    // $FileName = null;
-
-    // if (!empty($_FILES["bukti_transfer"]["name"])) {
-    //     $FileName = time() . "_" . basename($_FILES["bukti_transfer"]["name"]);
-    //     $targetFilePath = $targetDir . $FileName;
-
-    //     if ($_FILES["bukti_transfer"]["error"] === UPLOAD_ERR_OK) {
-    //         if (move_uploaded_file($_FILES["bukti_transfer"]["tmp_name"], $targetFilePath)) {
-    //             // echo "File berhasil diunggah ke: " . $targetFilePath;
-    //         } else {
-    //             $FileName = null;
-    //         }
-    //     } else {
-    //         $FileName = null;
-    //     }
-    // }
 
      $FileName = null;
     $sourceFile = $_FILES["bukti_transfer"]["tmp_name"];
@@ -434,6 +410,7 @@ if (!empty($_POST["btnsetuju"])) {
                                                 </td>
                                                 <td class="text-center">
                                                     <?php
+                                                    $lpjFile = htmlspecialchars($data["lpj"] ?? '', ENT_QUOTES, 'UTF-8');
                                                     $datadetail = array(
                                                         array("Tanggal Pengeluaran", ":", date('d-m-Y', strtotime($data["tanggal_pengeluaran"])), 1),
                                                         array("Bidang", ":", $data["nama_bidang"], 1, ""),
@@ -447,7 +424,7 @@ if (!empty($_POST["btnsetuju"])) {
                                                         array("Sumber Dana - Dana Gereja", ":", "Rp. " . number_format($data["dana_gereja"], 0, ',', '.'), 1, ""),
                                                         array("Sumber Dana - Dana Swadaya", ":", "Rp. " . number_format($data["dana_swadaya"], 0, ',', '.'), 1, ""),
                                                         array("Keterangan", ":", $data["keterangan"], 1),
-                                                        array("LPJ", ":", "<a href='http://localhost:80/gkj_dayu/uploads/lpj/" . htmlspecialchars($data["lpj"]) . "' target='_blank'>" . htmlspecialchars($data["lpj"]) . "</a>", 1),
+                                                        array("LPJ", ":", "<a href='{$protocol}://{$host}{$uploadPath}{$lpjFile}' target='_blank'>{$lpjFile}</a>", 1),
                                                         array("Diinput oleh", ":", $data["nama"] . " - " . $data["jbtn"], 1),
                                                         array("Tanggal Pencatatan", ":", date('d-m-Y', strtotime($data["tanggal_catat"])), 1),
                                                         array("Divalidasi oleh", ":", $data["nama_validator"] . " - " . $data["jbtn_validator"], 1),
@@ -520,14 +497,14 @@ if (!empty($_POST["btnsetuju"])) {
                                         <td></td>
                                         <td></td>
                                         <td colspan="7" style="color:#5B90CD; font-weight:bolder">Jumlah Pencairan Dana Gereja (Per Program)</td>
-                                        <td class="text-end" style="color:#5B90CD; font-weight:bolder"> <?= number_format($jumlah_pencairan, 0, ',', '.') ?></td>
+                                        <td class="text-end" style="color:#5B90CD; font-weight:bolder"> <?= number_format((float) $jumlah_pencairan, 0, ',', '.') ?></td>
                                         <td colspan="3"></td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td></td>
                                         <td colspan="7" style="color:#5B90CD; font-weight:bolder">Jumlah Pemakaian Dana Pencairan (Per Program)</td>
-                                        <td class="text-end" style="color:#5B90CD; font-weight:bolder"> <?= number_format($totall_danaGereja, 0, ',', '.') ?></td>
+                                        <td class="text-end" style="color:#5B90CD; font-weight:bolder"> <?= number_format((float) $totall_danaGereja, 0, ',', '.') ?></td>
                                         <td colspan="3"></td>
                                     </tr>
                                     <tr>
@@ -581,22 +558,22 @@ if (!empty($_POST["btnsetuju"])) {
                                   <tr>
                                     <td style="background-color: #f2f9fb"></td>
                                     <td colspan="4" style="color:#322E7D; font-weight:bolder; background-color: #f2f9fb">Total Keseluruhan Program</td>
-                                    <td style="color:#322E7D; font-weight:bolder; background-color: #f2f9fb" class="text-end"><?= number_format($totalAll_jumlah, 0, ',', '.') ?></td>
-                                    <td style="color:#322E7D; font-weight:bolder; background-color: #f2f9fb" class="text-end"><?= number_format($totalAll_danaGereja, 0, ',', '.') ?></td>
-                                    <td style="color:#322E7D; font-weight:bolder; background-color: #f2f9fb" class="text-end"><?= number_format($totalAll_danaSwadaya, 0, ',', '.') ?></td>
-                                    <td style="color:#322E7D; font-weight:bolder; background-color: #f2f9fb" class="text-end"><?= number_format($totalAll_sumberDana, 0, ',', '.') ?></td>
+                                    <td style="color:#322E7D; font-weight:bolder; background-color: #f2f9fb" class="text-end"><?= number_format((float) ($totalAll_jumlah ?? 0), 0, ',', '.') ?></td>
+                                    <td style="color:#322E7D; font-weight:bolder; background-color: #f2f9fb" class="text-end"><?= number_format((float) ($totalAll_danaGereja ?? 0), 0, ',', '.') ?></td>
+                                    <td style="color:#322E7D; font-weight:bolder; background-color: #f2f9fb" class="text-end"><?= number_format((float) ($totalAll_danaSwadaya ?? 0), 0, ',', '.') ?></td>
+                                    <td style="color:#322E7D; font-weight:bolder; background-color: #f2f9fb" class="text-end"><?= number_format((float) ($totalAll_sumberDana ?? 0), 0, ',', '.') ?></td>
                                     <td colspan="4" style="background-color: #f2f9fb"></td>
                                 </tr>
                                 <tr>
                                     <td style="background-color: #f2f9fb"></td>
                                     <td colspan="8" style="background-color: #f2f9fb; color:#2b3e66; font-weight:bolder">Jumlah Pencairan Dana <?= $komisi ?></td>
-                                    <td colspan="" style="background-color: #f2f9fb; color:#2b3e66; font-weight:bolder" class="text-end"><?= number_format($jumlah_pencairan, 0, ',', '.') ?></td>
+                                    <td colspan="" style="background-color: #f2f9fb; color:#2b3e66; font-weight:bolder" class="text-end"><?= number_format((float) ($jumlah_pencairan ?? 0), 0, ',', '.') ?></td>
                                     <td colspan="3" style="background-color: #f2f9fb"></td>
                                 </tr>
                                 <tr>
                                     <td style="background-color: #f2f9fb"></td>
                                     <td colspan="8" style="background-color: #f2f9fb; color:#2b3e66; font-weight:bolder">Jumlah Pemakaian Dana Pencairan <?= $komisi ?></td>
-                                    <td style="background-color: #f2f9fb; color:#2b3e66; font-weight:bolder" class="text-end"><?= number_format($total_pakai, 0, ',', '.') ?></td>
+                                    <td style="background-color: #f2f9fb; color:#2b3e66; font-weight:bolder" class="text-end"><?= number_format((float) ($total_pakai ?? 0), 0, ',', '.') ?></td>
                                     <td colspan="3" style="background-color: #f2f9fb" class="text-center"></td>
                                 </tr>
                         <?php

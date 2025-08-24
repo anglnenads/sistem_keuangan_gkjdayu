@@ -1,0 +1,44 @@
+# ------------------------------------------------------------------
+#  Production Dockerfile for a Standard PHP/Apache Application
+# ------------------------------------------------------------------
+
+# Stage 1: Start from the official PHP 8.2 image with Apache.
+# This is the same base as the original file, which is good.
+FROM php:8.2-apache
+
+# Stage 2: Install system dependencies and common PHP extensions.
+# This is a critical step that was missing. Most PHP apps need these.
+# pdo_mysql is for database connection.
+# gd is for image manipulation (resizing, watermarks, etc.).
+# zip is for handling zip files.
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    zip \
+    unzip \
+    git \
+    curl \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql zip mysqli
+
+# Stage 3: Enable Apache's mod_rewrite module.
+# THIS IS THE LINE THAT FIXES YOUR "Internal Server Error".
+RUN a2enmod rewrite
+
+# Stage 4: Set the working directory for all subsequent commands.
+# This keeps the file clean and is a best practice.
+WORKDIR /var/www/html
+
+# Stage 5: Copy your application source code into the image.
+# This line is the same as the original file.
+COPY . .
+
+# Stage 6: Set correct file permissions for security.
+# Apache runs as the 'www-data' user, so it needs ownership of the files.
+RUN chown -R www-data:www-data /var/www/html
+
+# The EXPOSE 80 line from the original file is not strictly necessary,
+# as the base image already does this, but it's good for documentation.
+# We will rely on the 'ports' mapping in docker-compose instead.

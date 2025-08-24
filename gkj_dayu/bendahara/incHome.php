@@ -60,6 +60,7 @@ $array = $view->vViewData($sql);
 ?>
 
 <div class="container-fluid">
+
     <div class="row">
         <div class="col-md-12">
             <?php
@@ -67,6 +68,7 @@ $array = $view->vViewData($sql);
             ?>
         </div>
     </div>
+    
 
     <h3 style="color:#292c5f">Sistem Keuangan GKJ Dayu</h3>
     <h5 style="color:#8B8ABB">Selamat Datang, <?= $_SESSION["jabatan"] ?> !</h5>
@@ -114,26 +116,5 @@ $array = $view->vViewData($sql);
             </div>
         </div>
         </div>
-
-        <!-- <p><?= $saldo_awal ?></p> -->
-
-        <!-- <div style="display: flex;  height: 17%; margin-top:3%; margin-left:auto; margin-right:auto; font-size:25px; border-radius:25px; font-weight: bold; width:98%">
-        <div style=" width: 27%; border-radius:15px; background-color: #E5F7FF ;text-align: left; display: flex; justify-content: left ;align-items: center; margin-left:0%">
-            <p style="margin-left: 50px; margin-top:10px; font-size: 25px; color:#3F3E65 ">Saldo<br> <span style="font-size: 27px; color:#605F86">Rp. <?= number_format($saldo_awal + $total_terima - $total_keluar, 0, ',', '.') ?></span>
-                <br> <span style="font-size: 20px; color:#605F86">Saldo Awal Tahun : Rp. <?= number_format($saldo_awal, 0, ',', '.') ?></span>
-            </p>
-        </div>
-        &nbsp;
-        <div style=" width: 27%; border-radius:15px; background-color: #E5F7FF ;text-align: left; display: flex; justify-content: left ;align-items: center; margin-left:8%">
-
-            <p style="margin-left: 50px; margin-top:10px; font-size: 25px; color:#3F3E65 ">Kas Masuk <br> <span style="font-size: 27px; color:#605F86"> Rp. <?= number_format($total_terima, 0, ',', '.') ?></span> </p>
-        </div>
-        &nbsp;
-
-        <div style=" width: 27%; border-radius:15px; background-color: #E5F7FF  ;text-align: left; display: flex; justify-content: left ;align-items: center; margin-left:8%">
-
-            <p style="margin-left: 50px; margin-top:10px; font-size: 25px; color:#3F3E65 ">Kas Keluar <br> <span style="font-size: 27px; color:#605F86"> Rp. <?= number_format($total_keluar, 0, ',', '.') ?></span> </p>
-        </div>
-    </div> -->
         &nbsp;
     </div>

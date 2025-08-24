@@ -18,7 +18,6 @@ class cUpdate
 		}
 		$allstatement = "UPDATE " . $atable . " SET " . $fieldname . " WHERE " . $datakey . "";
 		$query = $allstatement;
-		//echo "<br>".$query."<br>";
 		$result = mysqli_query($GLOBALS["conn"], $query);
 		if ($result) {
 			if (strpos($fieldname, 'password') !== false) {
@@ -100,7 +99,6 @@ function fUpdateData($afields, $atable, $avalues, $datakey, $linkurl)
 		}
 		$allstatement = "UPDATE " . $atable . " SET " . $fieldname . " WHERE " . $datakey . "";
 		$query = $allstatement;
-		//echo "<br>".$query."<br>";
 		$result = mysqli_query($GLOBALS["conn"], $query);
 		if ($result) {
 			echo "<script>
@@ -132,68 +130,9 @@ function fUpdateData($afields, $atable, $avalues, $datakey, $linkurl)
 	}
 
 
-
-// function UpdateStatus($afields, $atable, $avalues, $datakey, $linkurl)
-// 	{
-// 		$countarray_field = count($afields) - 1;
-// 		$countarray_value = count($avalues) - 1;
-// 		$fieldname = "";
-// 		$datavalue = "";
-// 		for ($i = 0; $i <= $countarray_field; $i++) {
-// 			if ($i == $countarray_field) {
-// 				$separator = "";
-// 			} else {
-// 				$separator = ",";
-// 			}
-
-// 			if ($avalues[$i] === NULL) {
-// 				$fieldname .= $afields[$i] . "=NULL" . $separator;
-// 			} elseif (is_numeric($avalues[$i])) {
-// 				$fieldname .= $afields[$i] . "=" . $avalues[$i] . $separator;
-// 			} elseif (is_string($avalues[$i])) {
-// 				$escaped_value = mysqli_real_escape_string($GLOBALS["conn"], $avalues[$i]);
-// 				$fieldname .= $afields[$i] . "='" . $escaped_value . "'" . $separator;
-// 			} else {
-// 				$fieldname .= $afields[$i] . "=" . $avalues[$i] . $separator;
-// 			}
-// 		}
-// 		$allstatement = "UPDATE " . $atable . " SET " . $fieldname . " WHERE " . $datakey . "";
-// 		$query = $allstatement;
-// 		//echo "<br>".$query."<br>";
-// 		$result = mysqli_query($GLOBALS["conn"], $query);
-// 		if ($result) {
-// 			echo "<script>
-// 						Swal.fire({
-// 						  position:'center',
-// 						  width:'16em',
-// 						  icon: 'success',	
-// 						  text: 'Data berhasil diubah',
-// 						  type: 'success',
-// 						}).then(function (result) {
-// 						  if (true) {
-// 						    window.location = '';
-// 						  }
-// 				}) </script>";
-// 		} else {
-// 			echo "<script>
-// 						Swal.fire({
-// 						  position:'center',
-// 						  width:'16em',
-// 						  icon: 'error',	
-// 						  text: 'Data tidak berhasil diubah',
-// 						  type: 'error',
-// 						}).then(function (result) {
-// 						  if (true) {
-// 						    window.location = '';
-// 						  }
-// 				}) </script>";
-// 		}
-// 	}
-
 	function _prosesStatus($field, $value1, $table, $status)
 	{
 		$sqlvalid = "UPDATE " . $table . " SET status = '$status', tanggal_proses = CURDATE() WHERE " . $field . " = " . $value1;
-		// echo "<p>" . $sqlvalid . "</p>";
 
 		$query = mysqli_query($GLOBALS["conn"], $sqlvalid);
 
@@ -228,13 +167,6 @@ function fUpdateData($afields, $atable, $avalues, $datakey, $linkurl)
 
 	function _pengajuanStatus($id_field, $id_value, $table, $afields, $avalues)
 	{
-		// $sqlvalid = "UPDATE " . $table . " SET status = '$status', id_validator = $value3 WHERE " . $field . " = " . $value1;
-		// // echo "<p>" . $sqlvalid . "</p>";
-
-		
-		
-		// $query = mysqli_query($GLOBALS["conn"], $sqlvalid);
-
 		$countarray_field = count($afields) - 1;
 		$countarray_value = count($avalues) - 1;
 		$fieldname = "";
@@ -249,10 +181,7 @@ function fUpdateData($afields, $atable, $avalues, $datakey, $linkurl)
 		}
 
 		$query = "UPDATE " . $table . " SET " . $fieldname . " WHERE " . $id_field . " IN (" . $id_value . ")";
-		
-		//echo "<p>" . $query . "</p>";
-		// $query = $allstatement;
-		
+				
 		$result = mysqli_query($GLOBALS["conn"], $query);
 		if ($result) {
 			if (in_array("'Ditolak'", $avalues)) {
@@ -263,7 +192,6 @@ function fUpdateData($afields, $atable, $avalues, $datakey, $linkurl)
 				$pesan = 'Pengajuan Disetujui';
 			}
 			
-
     		echo "<script>
             		Swal.fire({
               		position: 'center',
@@ -295,13 +223,6 @@ function fUpdateData($afields, $atable, $avalues, $datakey, $linkurl)
 
 	function _functionStatus($id_field, $id_value, $table, $afields, $avalues)
 	{
-		// $sqlvalid = "UPDATE " . $table . " SET status = '$status', id_validator = $value3 WHERE " . $field . " = " . $value1;
-		// // echo "<p>" . $sqlvalid . "</p>";
-
-		
-		
-		// $query = mysqli_query($GLOBALS["conn"], $sqlvalid);
-
 		$countarray_field = count($afields) - 1;
 		$countarray_value = count($avalues) - 1;
 		$fieldname = "";
@@ -316,10 +237,7 @@ function fUpdateData($afields, $atable, $avalues, $datakey, $linkurl)
 		}
 
 		$query = "UPDATE " . $table . " SET " . $fieldname . " WHERE " . $id_field . " IN (" . $id_value . ")";
-		
-		//echo "<p>" . $query . "</p>";
-		//$query = $allstatement;
-		
+				
 		$result = mysqli_query($GLOBALS["conn"], $query);
 		if ($result) {
 			if (strpos($table, 'pengeluaran') !== false) {
@@ -413,5 +331,4 @@ function fUpdateData($afields, $atable, $avalues, $datakey, $linkurl)
 				}) </script>";
 		}
 	}
-	
 }

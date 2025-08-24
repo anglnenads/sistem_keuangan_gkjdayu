@@ -119,10 +119,10 @@ if (empty($_POST['filter'])) {
 
         <div style="display: flex; justify-content: end; width:30%;">
             <div class="" style="text-align:center; background-color:#2e8b57; width: 23%; color:white; border-radius:4px">
-                <a href="http://localhost:80/gkj_dayu/Cetak/xlxCetakPenerimaanAkun.php" target="" style="color:white; text-decoration: none;">Cetak Excel</a>
+                <a href="Cetak/xlxCetakPenerimaanAkun.php" target="" style="color:white; text-decoration: none;">Cetak Excel</a>
             </div> &nbsp;&nbsp;
             <div class="" style="text-align:center; background-color:#dc143c; width: 23%; color:white; border-radius:4px">
-                <a href="http://localhost:80/gkj_dayu/Cetak/pdfCetakPenerimaanAkun.php" target="_new" style="color:white; text-decoration: none;">Cetak PDF</a>
+                <a href="Cetak/pdfCetakPenerimaanAkun.php" target="_new" style="color:white; text-decoration: none;">Cetak PDF</a>
             </div>
         </div>
     </div>

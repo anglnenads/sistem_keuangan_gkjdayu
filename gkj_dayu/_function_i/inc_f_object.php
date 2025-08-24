@@ -118,7 +118,6 @@ function _myobject($object, $name, $class, $id, $value, $caption, $maxlength, $s
 		case 4:		// radio
 		?>
 			<?php
-			//$sql = "SELECT keterangan field1, keterangan field2 FROM akunjenis";
 			$view = new cView();
 			$arraypilihan = $view->vViewData($placeholder);
 			$x = 0;
@@ -156,7 +155,6 @@ function _myobject($object, $name, $class, $id, $value, $caption, $maxlength, $s
 		case 41:	// radio inline
 		?>
 			<?php
-			//$sql = "SELECT keterangan field1, keterangan field2 FROM akunjenis";
 			$view = new cView();
 			$arraypilihan = $view->vViewData($placeholder);
 			$x = 0;
@@ -410,7 +408,6 @@ function _myHeader($iconName, $header, $footer)
 <?php
 }
 
-//function _mytable($object,$class,$id,$width,$align,$valign,$value,$rowspan,$colspan) {
 function _mytable($object, $class, $id, $width, $align, $valign, $value)
 {
 	switch ($object) {
@@ -473,7 +470,6 @@ function _mytable($object, $class, $id, $width, $align, $valign, $value)
 	}
 }
 
-// mytable_coloumn
 function _mytable_coloumn($object, $class, $id, $width, $align, $valign, $value, $caption)
 {
 	switch ($object) {
@@ -530,11 +526,9 @@ function _mytable_coloumn($object, $class, $id, $width, $align, $valign, $value,
 // create window modal insert
 function _CreateModalInsert($number, $type, $name, $button, $width, $height, $title, $acaption, $afield, $value, $linkurl)
 {
-	//$footer_field = count($footer) - 1;
 	$count_field = count($afield) - 1;
 	$idmodal  = $name . $number;
 	$opwindow = $button . $number;
-	//$gicons = "glyphicon glyphicon-plus-sign";
 	$clsbtn = "btn btn-primary btn-sm";
 ?>
 
@@ -543,7 +537,6 @@ function _CreateModalInsert($number, $type, $name, $button, $width, $height, $ti
 	</button>
 	</button>
 
-	<!-- Modal -->
 
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -682,12 +675,10 @@ function _CreateWindowModal($number, $type, $name, $button, $width, $height, $ti
 	$gicons = "glyphicon glyphicon-plus-sign";
 	$clsbtn = "btn btn-primary btn-sm";
 ?>
-	<!-- Button trigger modal -->
 	<button type="button" class="<?php echo $clsbtn; ?>" data-toggle="modal" data-target="<?php echo '#' . $idmodal; ?>">
 		<ion-icon name="add-circle" style="font-size:18px"></ion-icon>&nbsp;<?php echo $title; ?>
 	</button>
 	<p></p>
-	<!-- MODAL -->
 	<FORM class="" method="post" action="<?php echo $linkurl; ?>" enctype="multipart/form-data">
 		<div class="modal fade" id="<?php echo $idmodal; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -817,7 +808,6 @@ function _CreateWindowModal($number, $type, $name, $button, $width, $height, $ti
 			</div>
 		</div>
 	</FORM>
-	<!-- End Modal -->
 <?php
 }
 
@@ -846,12 +836,10 @@ function _CreateWindowModalDetil($number, $type, $name, $button, $width, $height
 
 
 ?>
-	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-info w-50 h-50" data-bs-toggle="modal" data-bs-target="#formview<?= $number; ?>" style=" border-radius:100%;  padding:6px">
 		<ion-icon name="eye-outline"></ion-icon>
 	</button>
 
-	<!-- Modal -->
 	<div class="modal fade" id="formview<?= $number; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog <?= $modalsize; ?> text-start">
 			<div class="modal-content">
@@ -897,7 +885,8 @@ function _CreateWindowModalDetil($number, $type, $name, $button, $width, $height
 
 }
 
-function _CreateWindowModalPencairan($number, $type, $name, $button, $width, $height, $title, $acaption, $afield, $value, $disabled = false, $linkurl, $btnText)
+#function _CreateWindowModalPencairan($number, $type, $name, $button, $width, $height, $title, $acaption, $afield, $value, $disabled = false, $linkurl, $btnText)
+function _CreateWindowModalPencairan($number, $type, $name, $button, $width, $height, $title, $acaption, $afield, $value, $linkurl, $btnText, $disabled = false)
 {
 	// get title
 	$titledetil = explode('#', $title);
@@ -920,10 +909,6 @@ function _CreateWindowModalPencairan($number, $type, $name, $button, $width, $he
 ?>
 
 	<?php
-	// Cek apakah tombol disabled atau tidak
-	// $disabledAttr = $disabled ? 'disabled' : '';
-	// $btnClass = $disabled ? 'btn-secondary' : 'btn-success'; // Warna abu-abu jika disabled
-
 
 	// Cek apakah tombol disabled atau tidak
 	$disabledAttr = $disabled ? 'disabled' : '';
@@ -937,7 +922,6 @@ function _CreateWindowModalPencairan($number, $type, $name, $button, $width, $he
 
 
 
-	<!-- Modal -->
 	<div class="modal fade" id="formedit<?= $number; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog <?= $modalsize; ?> text-start">
 			<div class="modal-content text-left">
@@ -1056,7 +1040,6 @@ function _CreateWindowModalPencairan($number, $type, $name, $button, $width, $he
 					<div class="modal-footer">
 						<button type="submit" name="btncair" value="true" class="btn btn-success btn-sm" style="border-radius: 25px; width: 70px;">Simpan</button>
 						<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="border-radius: 25px; width: 70px;">Tutup</button>
-						<!-- <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="border-radius: 25px;">TUTUP</button> -->
 					</div>
 				</form>
 			</div>
@@ -1287,7 +1270,6 @@ function _CreateWindowModalUpdate($number, $type, $name, $button, $width, $heigh
 		<ion-icon name="create-outline"></ion-icon>
 	</button>
 
-	<!-- Modal -->
 	<div class="modal fade" id="formedit<?= $number; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog <?= $modalsize; ?> text-start">
 			<div class="modal-content text-left">
@@ -1456,7 +1438,8 @@ function _CreateWindowModalUpdate($number, $type, $name, $button, $width, $heigh
 
 }
 
-function _CreateModalSisaDana($number, $type, $name, $button, $width, $height, $title, $acaption, $afield, $value, $linkurl, $disabled = false, $buttonCaption)
+#function _CreateModalSisaDana($number, $type, $name, $button, $width, $height, $title, $acaption, $afield, $value, $linkurl, $disabled = false, $buttonCaption)
+function _CreateModalSisaDana($number, $type, $name, $button, $width, $height, $title, $acaption, $afield, $value, $linkurl, $buttonCaption, $disabled = false)
 {
 	// get title
 	$titledetil = explode('#', $title);
@@ -1483,15 +1466,11 @@ function _CreateModalSisaDana($number, $type, $name, $button, $width, $height, $
 	$btnStyle = $disabled ? 'background-color: gray; color: white;' : 'background-color: #447ed1; color: white;';
 	?>
 
-	<!-- <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#formedit<?= $number; ?>" style=" padding:6px; font-size: 15px; border-radius: 20px;">
-		Pengembalian Dana
-	</button> -->
 
 	<button type="button" class="btn-sm" data-bs-toggle="modal" data-bs-target="#formedit<?= $number; ?>" style="<?= $btnStyle ?> padding:6px; font-size: 15px; border-radius: 20px; width:180px; border:1px solid #3a529d" <?= $disabledAttr; ?>>
 		<?= $buttonCaption ?>
 	</button>
 
-	<!-- Modal -->
 	<div class="modal fade" id="formedit<?= $number; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog <?= $modalsize; ?> text-start">
 			<div class="modal-content text-left">
@@ -1653,7 +1632,6 @@ function _CreateWindowModalStatus($number, $type, $name, $button, $width, $heigh
 		<ion-icon name="create"></ion-icon>
 	</button>
 
-	<!-- Modal -->
 	<div class="modal fade" id="formedit<?= $number; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog <?= $modalsize; ?> text-start">
 			<div class="modal-content text-left">
@@ -1769,9 +1747,8 @@ function _CreateWindowModalStatus($number, $type, $name, $button, $width, $heigh
 }
 ?>
 
-<!-- create window delete -->
-<!-- $on,"del","del-form","del-button",400,200,"HAPUS DATA".'<footer class="blockquote-footer">'.'xx'.' '.'yy'.'</footer>',"",$datadelete,"","?l=".$_GET["l"]); -->
 <?php
+#function _CreateWindowModalDelete($number, $type, $name, $button, $width, $height, $title, $acaption, $value, $linkurl, $disabled = false)
 function _CreateWindowModalDelete($number, $type, $name, $button, $width, $height, $title, $acaption, $value, $linkurl, $disabled = false)
 {
 	// get title
@@ -1795,9 +1772,6 @@ function _CreateWindowModalDelete($number, $type, $name, $button, $width, $heigh
 	$disabledAttr = $disabled ? 'disabled' : '';
 
 ?>
-	<!-- <button type="button" class="btn btn-danger btn-md " data-bs-toggle="modal" data-bs-target="#formdelete<?= $number; ?>" style=" border-radius:100% ">
-		<ion-icon name="trash-bin-outline"></ion-icon>
-	</button> -->
 
 	<button type="button" class="btn btn-danger w-50 h-50 " data-bs-toggle="modal" data-bs-target="#formdelete<?= $number; ?>" style=" border-radius:100%;  padding:6px" <?= $disabledAttr; ?>>
 		<ion-icon name="trash-bin-outline"></ion-icon>
@@ -1849,7 +1823,8 @@ function _CreateWindowModalDelete($number, $type, $name, $button, $width, $heigh
 }
 // end of window modal delete
 
-function _CreateWindowModalValid($number, $type, $name, $button, $width, $height, $title, $value, $linkurl, $disabled = false, $btnText, $caption)
+#function _CreateWindowModalValid($number, $type, $name, $button, $width, $height, $title, $value, $linkurl, $disabled = false, $btnText, $caption)
+function _CreateWindowModalValid($number, $type, $name, $button, $width, $height, $title, $value, $linkurl, $btnText, $caption, $disabled = false)
 {
 	// get title
 	$titledetil = explode('#', $title);
@@ -1880,10 +1855,6 @@ function _CreateWindowModalValid($number, $type, $name, $button, $width, $height
 		<?= $btnText; ?>
 	</button>
 
-	<!-- <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#formvalid<?= $number; ?>" style="border-radius: 25px; width:100%">
-		<ion-icon name="checkmark-circle-outline"></ion-icon>
-	Konfirmasi
-	</button> -->
 
 	<div class="modal fade" id="formvalid<?= $number; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog <?= $modalsize; ?> text-start">
@@ -1918,7 +1889,6 @@ function _CreateWindowModalValid($number, $type, $name, $button, $width, $height
 					<div class="modal-footer">
 						<button type="submit" name="btnsetuju" value="true" class="btn btn-success btn-sm" style="border-radius: 25px; width: 70px;">YA</button>
 						<button type="submit" name="btntolak" value="false" class="btn btn-danger btn-sm" style="border-radius: 25px; width: 70px;">TIDAK</button>
-						<!-- <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="border-radius: 25px;">TUTUP</button> -->
 					</div>
 				</form>
 			</div>
@@ -1952,11 +1922,6 @@ function _CreateWindowModalReset($number, $type, $name, $button, $width, $height
 	<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#formreset<?= $number; ?>" style="font-weight:bold; border-radius: 25px; width:100%; background-color: #b1c4df; color: #24426d">
 		Reset Password
 	</button>
-
-	<!-- <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#formvalid<?= $number; ?>" style="border-radius: 25px; width:100%">
-		<ion-icon name="checkmark-circle-outline"></ion-icon>
-	Konfirmasi
-	</button> -->
 
 	<div class="modal fade" id="formreset<?= $number; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog <?= $modalsize; ?> text-start">
@@ -2064,7 +2029,6 @@ function _CreateWindowModalProses($number, $type, $name, $button, $width, $heigh
 					<div class="modal-footer">
 						<button type="submit" name="btnproses" value="true" class="btn btn-success btn-sm" style="border-radius: 25px;">Proses</button>
 						<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="border-radius: 25px;">Tutup</button>
-						<!-- <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="border-radius: 25px;">TUTUP</button> -->
 					</div>
 				</form>
 			</div>
@@ -2347,7 +2311,6 @@ function _CreateModalPDF($id, $pdf)
 				</div>
 				<div class="modal-body">
 					<embed alt='Alt text for embed' src="<?php echo $pdf ?>" width="100%" height="500" type='application/pdf'>
-					<!--  <div id="pdf"></div>  -->
 				</div>
 			</div>
 		</div>
@@ -2635,8 +2598,3 @@ function _GetNamaBulan($value)
 	$result = array($bulan, $sibul);
 	return $result;
 }
-?>
-
-<script>
-
-</script>

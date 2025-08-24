@@ -1,3 +1,9 @@
+<?php 
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+$host = $_SERVER['HTTP_HOST'];
+$uploadPath = "//uploads/lpj/";
+?>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -224,6 +230,7 @@
                                                 <td></td>
                                                 <td class="text-center">
                                                     <?php
+                                                    $lpjFile = htmlspecialchars($data["lpj"] ?? '', ENT_QUOTES, 'UTF-8');
                                                     $datadetail = array(
                                                         array("Tanggal Pengeluaran", ":", date('d-m-Y', strtotime($data["tanggal_pengeluaran"])), 1),
                                                         array("Bidang", ":", $data["nama_bidang"], 1, ""),
@@ -237,7 +244,7 @@
                                                         array("Sumber Dana - Dana Gereja", ":", "Rp. " . number_format($data["dana_gereja"], 0, ',', '.'), 1, ""),
                                                         array("Sumber Dana - Dana Swadaya", ":", "Rp. " . number_format($data["dana_swadaya"], 0, ',', '.'), 1, ""),
                                                         array("Keterangan", ":", $data["keterangan"], 1),
-                                                        array("LPJ", ":", "<a href='http://localhost:80/gkj_dayu/uploads/lpj/" . htmlspecialchars($data["lpj"]) . "' target='_blank'>" . htmlspecialchars($data["lpj"]) . "</a>", 1),
+                                                        array("LPJ", ":", "<a href='{$protocol}://{$host}{$uploadPath}{$lpjFile}' target='_blank'>{$lpjFile}</a>", 1),
                                                         array("Diinput oleh", ":", $data["nama"] . " - " . $data["jbtn"], 1),
                                                         array("Tanggal Pencatatan", ":", date('d-m-Y', strtotime($data["tanggal_catat"])), 1),
                                                         array("Divalidasi oleh", ":", $data["nama_validator"] . " - " . $data["jbtn_validator"], 1),
@@ -321,21 +328,21 @@
                                         <td></td>
                                         <td></td>
                                         <td colspan="7" style="color:#5B90CD; font-weight:bolder">Jumlah Pencairan Dana Gereja (Per Program)</td>
-                                        <td class="text-end" style="color:#5B90CD; font-weight:bolder"> <?= number_format($jumlah_pencairan, 0, ',', '.') ?></td>
+                                        <td class="text-end" style="color:#5B90CD; font-weight:bolder"> <?= number_format((float) $jumlah_pencairan, 0, ',', '.') ?></td>
                                         <td colspan=""></td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td></td>
                                         <td colspan="7" style="color:#5B90CD; font-weight:bolder">Jumlah Pemakaian Dana Pencairan (Per Program)</td>
-                                        <td class="text-end" style="color:#5B90CD; font-weight:bolder"> <?= number_format($totall_danaGereja, 0, ',', '.') ?></td>
+                                        <td class="text-end" style="color:#5B90CD; font-weight:bolder"> <?= number_format((float) $totall_danaGereja, 0, ',', '.') ?></td>
                                         <td colspan=""></td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td></td>
                                         <td colspan="7" style="color:#5B90CD; font-weight:bolder">Sisa Dana Pencairan (Per Program)</td>
-                                        <td class="text-end" style="color:#5B90CD; font-weight:bolder"> <?= number_format($jumlah_pencairan - $totall_danaGereja, 0, ',', '.') ?></td>
+                                        <td class="text-end" style="color:#5B90CD; font-weight:bolder"> <?= number_format((float) $jumlah_pencairan - $totall_danaGereja, 0, ',', '.') ?></td>
                                         <td colspan="">
 
                                         </td>
@@ -367,10 +374,10 @@
                                 <tr>
                                     <td style="background-color: rgb(223, 240, 248)"></td>
                                     <td colspan="4" style="color:#322E7D; font-weight:bolder; background-color: rgb(223, 240, 248)">Total Keseluruhan Program</td>
-                                    <td style="color:#322E7D; font-weight:bolder; background-color: rgb(223, 240, 248)" class="text-end"><?= number_format($totalAll_jumlah, 0, ',', '.') ?></td>
-                                    <td style="color:#322E7D; font-weight:bolder; background-color: rgb(223, 240, 248)" class="text-end"><?= number_format($totalAll_danaGereja, 0, ',', '.') ?></td>
-                                    <td style="color:#322E7D; font-weight:bolder; background-color: rgb(223, 240, 248)" class="text-end"><?= number_format($totalAll_danaSwadaya, 0, ',', '.') ?></td>
-                                    <td style="color:#322E7D; font-weight:bolder; background-color: rgb(223, 240, 248)" class="text-end"><?= number_format($totalAll_sumberDana, 0, ',', '.') ?></td>
+                                    <td style="color:#322E7D; font-weight:bolder; background-color: rgb(223, 240, 248)" class="text-end"><?= number_format((float) ($totalAll_jumlah ?? 0), 0, ',', '.') ?></td>
+                                    <td style="color:#322E7D; font-weight:bolder; background-color: rgb(223, 240, 248)" class="text-end"><?= number_format((float) ($totalAll_danaGereja ?? 0), 0, ',', '.') ?></td>
+                                    <td style="color:#322E7D; font-weight:bolder; background-color: rgb(223, 240, 248)" class="text-end"><?= number_format((float) ($totalAll_danaSwadaya ?? 0), 0, ',', '.') ?></td>
+                                    <td style="color:#322E7D; font-weight:bolder; background-color: rgb(223, 240, 248)" class="text-end"><?= number_format((float) ($totalAll_sumberDana ?? 0), 0, ',', '.') ?></td>
                                     <td colspan="2" style="background-color: rgb(223, 240, 248)"></td>
                                 </tr>
                                 <tr>
@@ -382,7 +389,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td style="color:#2b3e66; font-weight:bolder" class="text-end"><?= number_format($jumlah_pencairan, 0, ',', '.') ?></td>
+                                    <td style="color:#2b3e66; font-weight:bolder" class="text-end"><?= number_format((float) ($jumlah_pencairan ?? 0), 0, ',', '.') ?></td>
                                     <td class="text-center"></td>
 
                                 </tr>
@@ -394,7 +401,7 @@
                                     <td> </td>
                                     <td></td>
                                     <td></td>
-                                    <td style="color:#2b3e66; font-weight:bolder" class="text-end"><?= number_format($total_pakai, 0, ',', '.') ?></td>
+                                    <td style="color:#2b3e66; font-weight:bolder" class="text-end"><?= number_format((float) ($total_pakai ?? 0), 0, ',', '.') ?></td>
                                     <td class="text-center"></td>
 
                                 </tr>

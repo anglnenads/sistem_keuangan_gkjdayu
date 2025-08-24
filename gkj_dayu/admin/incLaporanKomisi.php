@@ -49,10 +49,10 @@ if (isset($_SESSION['tahun_aktif'])) {
 
     <div style="display: flex; justify-content: end; width:30%;">
         <div class="" style="text-align:center; background-color:#2e8b57; width: 23%; color:white; border-radius:4px">
-            <a href="http://localhost:80/gkj_dayu/cetak/xlxCetakRencanaRealisasiKomisi.php" target="" style="color:white; text-decoration: none;">Cetak Excel</a>
+            <a href="cetak/xlxCetakRencanaRealisasiKomisi.php" target="" style="color:white; text-decoration: none;">Cetak Excel</a>
         </div> &nbsp;&nbsp;
         <div class="" style="text-align:center; background-color:#dc143c; width: 23%; color:white; border-radius:4px">
-            <a href="http://localhost:80/gkj_dayu/cetak/pdfCetakRencanaRealisasiKomisi.php" target="_new" style="color:white; text-decoration: none;">Cetak PDF</a>
+            <a href="cetak/pdfCetakRencanaRealisasiKomisi.php" target="_new" style="color:white; text-decoration: none;">Cetak PDF</a>
         </div>
     </div>
 </div>
@@ -179,10 +179,10 @@ if (isset($_SESSION['tahun_aktif'])) {
                             <td class="text-center"><?= $cnourut ?></td>
                             <td><?= $data['nama_bidang'] ?></td>
                             <td><?= $data['nama_komisi'] ?></td>
-                            <td class="text-end" style="font-weight: bold;"><?= number_format($data['jumlah_rencana_penerimaan'], 0, ',', '.') ?></td>
-                            <td class="text-end" style="font-weight: bold; color: <?= $color1 ?>"> <?= number_format($data['jumlah_realisasi_penerimaan'], 0, ',', '.') ?></td>
-                            <td class="text-end" style="font-weight: bold;"><?= number_format($data['jumlah_rencana_pengeluaran'], 0, ',', '.') ?></td>
-                            <td class="text-end" style="font-weight: bold; color: <?= $color2 ?>"><?= number_format($data['jumlah_realisasi_pengeluaran'], 0, ',', '.') ?></td>
+                            <td class="text-end" style="font-weight: bold;"><?= number_format((float) ($data['jumlah_rencana_penerimaan'] ?? 0), 0, ',', '.') ?></td>
+                            <td class="text-end" style="font-weight: bold; color: <?= $color1 ?>"> <?= number_format((float) ($data['jumlah_realisasi_penerimaan'] ?? 0), 0, ',', '.') ?></td>
+                            <td class="text-end" style="font-weight: bold;"><?= number_format((float) ($data['jumlah_rencana_pengeluaran'] ?? 0), 0, ',', '.') ?></td>
+                            <td class="text-end" style="font-weight: bold; color: <?= $color2 ?>"><?= number_format((float) ($data['jumlah_realisasi_pengeluaran'] ?? 0), 0, ',', '.') ?></td>
                         </tr>
                     <?php
                         $total_rencanaPenerimaan += $data['jumlah_rencana_penerimaan'];

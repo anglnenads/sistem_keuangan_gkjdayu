@@ -1,3 +1,93 @@
+<?php
+// --- START OF PHP LOGIC BLOCK ---
+// All PHP logic must be at the very top of the file.
+session_start();
+date_default_timezone_set('Asia/Jakarta');
+
+include_once("_function_i/cConnect.php");
+include_once("_function_i/cView.php");
+
+$conn = new cConnect();
+$conn->goConnect();
+
+// Inisialisasi variabel $alert
+$alert = "";
+
+if (empty($_POST["btnpost"])) {
+    $gu = 0;
+    $gp = 0;
+} else {
+    $gp = 1;
+    if (empty($_POST["unme"])) {
+        $gu = 0;
+        $gp = 0;
+    } else {
+        if (empty($_POST["pswd"])) {
+            $gu = 1;
+            $gp = 0;
+        } else {
+            // cleansing input post
+            $un = strip_tags($_POST["unme"]);
+            $up = md5(strip_tags($_POST["pswd"]));
+
+            // username & role
+            $sql = "SELECT a.* FROM user a ";
+            $sql .= "WHERE a.username = '" . $un . "' AND a.password = '" . $up . "' ";
+
+            $view = new cView();
+            $array = $view->vViewData($sql);
+
+            $gu = 0;
+            $gp = 1;
+            if (!empty($array)) {
+                foreach ($array as $value) {
+                    $gu = 1;
+                    $gp = 1;
+                    $alert = "";
+                    $_SESSION["id_user"] = $value["id_user"];
+                    $_SESSION["nama"] = $value["nama"];
+                    $_SESSION["role"] = $value["role"];
+                    $_SESSION["baseurl"] = $value["urlbase"];
+                    $_SESSION["jabatan"] = $value["jbtn"];
+                    $_SESSION["aktif"] = $value["status_aktif"];
+                }
+            }
+
+            // tahun aktif
+            $sqltahun = "SELECT a.* FROM fiskal a WHERE a.status_aktif = 1";
+            $view = new cView();
+            $aarraytahun = $view->vViewData($sqltahun);
+
+            if (!empty($aarraytahun)) {
+                foreach ($aarraytahun as $datatahun) {
+                    $_SESSION["tahun_aktif"] = $datatahun["tahun"];
+                    $_SESSION["tanggal_mulai"] = $datatahun["tanggal_mulai"];
+                    if (isset($datatahun["tanggal_akhir"])) {
+                        $_SESSION["tanggal_akhir"] = $datatahun["tanggal_akhir"];
+                    } else {
+                        $_SESSION["tanggal_akhir"] = "Tanggal akhir tidak tersedia";
+                    }
+                }
+            }
+        }
+    }
+}
+
+if ($gu == 0 and $gp == 1) {
+    $alert = 'Username & Password Salah !';
+} elseif ($gu == 0 and $gp == 0) {
+    $alert = "";
+} elseif ($gu == 1 and $gp == 1) {
+    if ($_SESSION["aktif"] == 0) {
+        $alert = "Akun tidak aktif atau dinonaktifkan. Hubungi Admin";
+    } else {
+        // This is the other header-sending function. It must also be in this block.
+        header('Location: ' . $_SESSION["baseurl"]);
+        exit(); // It's a good practice to exit after a redirect.
+    }
+}
+// --- END OF PHP LOGIC BLOCK ---
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,96 +129,6 @@
 
 </head>
 
-<?php
-session_start();
-date_default_timezone_set('Asia/Jakarta');
-
-include_once("_function_i/cConnect.php");
-include_once("_function_i/cView.php");
-
-$conn = new cConnect();
-$conn->goConnect();
-
-// Inisialisasi variabel $alert
-$alert = "";
-
-if (empty($_POST["btnpost"])) {
-    $gu = 0;
-    $gp = 0;
-} else {
-    $gp = 1;
-    if (empty($_POST["unme"])) {
-        $gu = 0;
-        $gp = 0;
-    } else {
-        if (empty($_POST["pswd"])) {
-            $gu = 1;
-            $gp = 0;
-        } else {
-            // cleansing input post
-            $un = strip_tags($_POST["unme"]);
-            $up = md5(strip_tags($_POST["pswd"]));
-
-            // username & role
-            $sql = "SELECT a.* FROM user a ";
-            $sql .= "WHERE a.username = '" . $un . "' AND a.password = '" . $up . "' ";
-
-            $view = new cView();
-            $array = $view->vViewData($sql);
-
-            $gu = 0;
-            $gp = 1;
-            foreach ($array as $value) {
-                $gu = 1;
-                $gp = 1;
-                $alert = "";
-                $_SESSION["id_user"] = $value["id_user"];
-                $_SESSION["nama"] = $value["nama"];
-                $_SESSION["role"] = $value["role"];
-                $_SESSION["baseurl"] = $value["urlbase"];
-                $_SESSION["jabatan"] = $value["jbtn"];
-                $_SESSION["aktif"] = $value["status_aktif"];
-            }
-
-            // tahun aktif
-            $sqltahun = "SELECT a.* FROM fiskal a WHERE a.status_aktif = 1";
-            $view = new cView();
-            $aarraytahun = $view->vViewData($sqltahun);
-
-            // Cek apakah ada hasil dari query
-            if (!empty($aarraytahun)) {
-                foreach ($aarraytahun as $datatahun) {
-                    $_SESSION["tahun_aktif"] = $datatahun["tahun"];
-                    $_SESSION["tanggal_mulai"] = $datatahun["tanggal_mulai"];
-                    // Cek apakah 'tanggal_akhir' ada dalam array
-                    if (isset($datatahun["tanggal_akhir"])) {
-                        $_SESSION["tanggal_akhir"] = $datatahun["tanggal_akhir"];
-                    } else {
-                        // Berikan nilai default jika tidak ada
-                        $_SESSION["tanggal_akhir"] = "Tanggal akhir tidak tersedia";
-                    }
-                }
-            } else {
-                // Jika query tidak menghasilkan data
-                echo "Data fiskal aktif tidak ditemukan.";
-            }
-        }
-    }
-}
-if ($gu == 0 and $gp == 1) {
-    $alert = 'Username & Password Salah !';
-} elseif ($gu == 0 and $gp == 0) {
-    $alert = "";
-} elseif ($gu == 1 and $gp == 1) {
-    if ($_SESSION["aktif"] == 0) {
-        $alert = "Akun tidak aktif atau dinonaktifkan. Hubungi Admin";
-    } else {
-        header('Location: ' . $_SESSION["baseurl"]);
-    }
-    //header('Location: ' . $_SESSION["baseurl"]);
-}
-?>
-
 <body>
     <div class="container-fluid vh-100 d-flex justify-content-center align-items-center">
         <div class="col-md-4">
@@ -160,7 +160,7 @@ if ($gu == 0 and $gp == 1) {
 
                         <p></p>
                         <p class="text-danger text-center small">
-                            <?= $alert; ?>
+                            <?php echo $alert; // Changed to use echo for clarity ?>
                         </p>
                     </form>
                 </div>
@@ -185,7 +185,6 @@ if ($gu == 0 and $gp == 1) {
     <!-- tooltips -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Aktifkan semua elemen dengan tooltip di dalam dokumen
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
             var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
                 return new bootstrap.Tooltip(tooltipTriggerEl);

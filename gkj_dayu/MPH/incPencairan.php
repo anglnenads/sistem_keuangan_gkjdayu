@@ -1,3 +1,11 @@
+<?php
+
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+$host = $_SERVER['HTTP_HOST'];
+$uploadPath = "/uploads/bukti_transfer/";
+
+?>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -107,6 +115,7 @@
 
                                             <td class="text-center">
                                                 <?php
+                                                $buktiTransferFile = htmlspecialchars($data["bukti_transfer"] ?? '', ENT_QUOTES, 'UTF-8');
                                                 $datadetail = array(
                                                     array("Tanggal Pencairan", ":", date('d-m-Y', strtotime($data["tanggal_pencairan"])), 1, ""), 
                                                     array("Bidang", ":", $data["nama_bidang"], 1, ""),
@@ -116,7 +125,7 @@
                                                     array("Keterangan Pencairan", ":", $data["keterangan"], 1, ""),
                                                     array("Jumlah Pencairan", ":", 'Rp. ' . number_format($data["jumlah_pencairan"], 0, ',', '.'), 1, ""),
                                                     array("Tanggal Pencairan", ":", date('d-m-Y', strtotime($data["tanggal_pencairan"])), 1, ""),
-                                                    array("Bukti Transfer", ":", "<a href='http://localhost:80/gkj_dayu/uploads/bukti_transfer/" . htmlspecialchars($data["bukti_transfer"]) . "' target='_blank'>" . htmlspecialchars($data["bukti_transfer"]) . "</a>", 1),
+                                                array("Bukti Transfer/Pencairan", ":", "<a href='{$protocol}://{$host}{$uploadPath}{$buktiTransferFile}' target='_blank'>{$buktiTransferFile}</a>", 1),
                                                     array("Dicairkan oleh", ":", $data["nama"] . " - " . $data["jbtn"], 1),
                                                 );
                                                 _CreateWindowModalDetil($cnourut, "view", "viewsasaran-form", "viewsasaran-button", "lg", 600, "Detail Data Pencairan#Data Pencairan $cnourut", "", $datadetail, "", "23", "");

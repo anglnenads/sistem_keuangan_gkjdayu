@@ -40,7 +40,7 @@ if (isset($_SESSION['bulan'])) {
 }
 
 if (!isset($_SESSION['id_user'])) {
-    header("Location: http://localhost:80/gkj_dayu/");
+    header("Location: ../");
     exit;
 }
 
@@ -48,7 +48,7 @@ if (!isset($_SESSION['id_user'])) {
 header("Content-Type: application/vnd.ms-excel");
 header("Content-Disposition: attachment; filename=\"".$title.".xls\"");
 
-$conn = mysqli_connect("localhost", "root", "", "gkj_dayu", "3306");
+$conn = mysqli_connect($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName, (int)$this->dbPort);
 
 $sql = "SELECT 
             p.tanggal_pengeluaran,

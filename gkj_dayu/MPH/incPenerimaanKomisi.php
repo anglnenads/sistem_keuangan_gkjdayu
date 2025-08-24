@@ -234,11 +234,11 @@
                                                 <td></td>
 
 
-                                                <td class="text-end" style="color:#483d8b; font-weight:bolder"><?= number_format($total, 0, ',', '.') ?></td>
+                                                <td class="text-end" style="color:#483d8b; font-weight:bolder"><?= number_format((float) $total, 0, ',', '.') ?></td>
 
-                                                <td class="text-end" style="color:#5B90CD; font-weight:bolder"><?= number_format($total_danaGereja, 0, ',', '.') ?></td>
-                                                <td class="text-end" style="color:#5B90CD; font-weight:bolder"><?= number_format($total_danaSwadaya, 0, ',', '.') ?></td>
-                                                <td class="text-end" style="color:#483d8b; font-weight:bolder"><?= number_format($subTotal, 0, ',', '.') ?></td>
+                                                <td class="text-end" style="color:#5B90CD; font-weight:bolder"><?= number_format((float) $total_danaGereja, 0, ',', '.') ?></td>
+                                                <td class="text-end" style="color:#5B90CD; font-weight:bolder"><?= number_format((float) $total_danaSwadaya, 0, ',', '.') ?></td>
+                                                <td class="text-end" style="color:#483d8b; font-weight:bolder"><?= number_format((float) $subTotal, 0, ',', '.') ?></td>
 
                                                 <?php
                                                 $color = "black"; 
@@ -283,10 +283,10 @@
                                         <td></td>
                                         <td colspan="3" style="color:#2b3e66; font-weight:bolder">Total Penerimaan <?= $komisi ?></td>
                                         <td></td>
-                                        <td style="color:#322E7D; font-weight:bolder;" class="text-end"><?= number_format($totalAll_jumlah, 0, ',', '.') ?></td>
-                                        <td style="color:#322E7D; font-weight:bolder;" class="text-end"><?= number_format($totalAll_danaGereja, 0, ',', '.') ?></td>
-                                        <td style="color:#322E7D; font-weight:bolder;" class="text-end"><?= number_format($totalAll_danaSwadaya, 0, ',', '.') ?></td>
-                                        <td style="color:#322E7D; font-weight:bolder;" class="text-end"><?= number_format($totalAll_sumberDana, 0, ',', '.') ?></td>
+                                        <td style="color:#322E7D; font-weight:bolder;" class="text-end"><?= number_format((float) ($totalAll_jumlah) ?? 0, 0, ',', '.') ?></td>
+                                        <td style="color:#322E7D; font-weight:bolder;" class="text-end"><?= number_format((float) ($totalAll_danaGereja) ?? 0, 0, ',', '.') ?></td>
+                                        <td style="color:#322E7D; font-weight:bolder;" class="text-end"><?= number_format((float) ($totalAll_danaSwadaya) ?? 0, 0, ',', '.') ?></td>
+                                        <td style="color:#322E7D; font-weight:bolder;" class="text-end"><?= number_format((float) ($totalAll_sumberDana) ?? 0, 0, ',', '.') ?></td>
                                         <td colspan="" class="text-center">
                                         </td>
                                         <td></td>

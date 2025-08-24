@@ -19,7 +19,8 @@ if (!empty($_POST["btnhapus"])) {
     $delete->_dDeleteData($_POST["hiddendeletevalue0"], $_POST["hiddendeletevalue1"], $_POST["hiddendeletevalue2"]);
 }
 
-$link = $segments[2];
+$pos = array_search('admin', $segments);
+$link = isset($segments[$pos + 1]) ? $segments[$pos + 1] : null;
 switch ($link) {
     case 222:
         include("incFormRencanaPenerimaanGereja.php");

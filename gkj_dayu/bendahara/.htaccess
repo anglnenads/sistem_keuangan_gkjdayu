@@ -2,7 +2,8 @@
 RewriteEngine On
 
 # Menetapkan base directory (sesuaikan dengan path root project Anda)
-RewriteBase /gkj_dayu/bendahara/
+RewriteBase /bendahara/
+#RewriteBase /gkj_dayu_deploy/gkj_dayu/gkj_dayu/bendahara/
 
 # Menghilangkan index.php dari URL
 RewriteCond %{THE_REQUEST} \s/index\.php [NC]

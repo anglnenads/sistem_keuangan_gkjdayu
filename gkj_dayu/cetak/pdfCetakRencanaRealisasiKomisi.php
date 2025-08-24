@@ -18,7 +18,7 @@ if (isset($_SESSION['tahun'])) {
 }
 
 if (!isset($_SESSION['id_user'])) {
-    header("Location: http://localhost:80/gkj_dayu/");
+    header("Location: ../");
     exit;
 }
 
@@ -53,7 +53,7 @@ class MYPDF extends TCPDF
 
 
 // connection & query
-$conn = mysqli_connect("localhost", "root", "", "gkj_dayu", "3306");
+$conn = mysqli_connect($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName, (int)$this->dbPort);
 
 if (isset($_SESSION["id_user"])) {
   $id_user = $_SESSION['id_user'];

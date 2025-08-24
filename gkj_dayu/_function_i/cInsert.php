@@ -18,7 +18,6 @@ class cInsert
 		}
 		$allstatement = "insert into " . $atable . "(" . $fieldname . ") values(" . $datavalue . ")";
 		$query = $allstatement;
-		//echo "<br>".$query."<br>";
 		$result = mysqli_query($GLOBALS["conn"], $query);
 
 		echo "<br>";
@@ -76,7 +75,6 @@ class cInsert
 		
 		$allstatement = "INSERT INTO " . $atable . " (" . $fieldname . ") VALUES (" . $datavalue . ")";
 		$query = $allstatement;
-		//echo $query;
 		
 		$result = mysqli_query($GLOBALS["conn"], $query);
 	
@@ -168,44 +166,13 @@ class cInsert
 		}
 		$allstatement = "insert into " . $atable . "(" . $fieldname . ") values(" . $datavalue . ")";
 		$query = $allstatement;
-		//echo "<br>".$query."<br>";
 		$result = mysqli_query($GLOBALS["conn"], $query);
-		//echo "<p>" . $query . "</p>";
 
 		if ($result) {
             return mysqli_insert_id($GLOBALS["conn"]); // Kembalikan ID anggaran terbaru
         } else {
             die("Error: " . mysqli_error($GLOBALS["conn"]));
         };
-
-		// echo "<br>";
-		// if ($result) {
-		// 	echo "<script>
-		// 				Swal.fire({
-		// 				  position:'center',
-		// 				  width:'16em',
-		// 				  icon: 'success',	
-		// 				  text: 'Data berhasil disimpan',
-		// 				  type: 'success',
-		// 				}).then(function (result) {
-		// 				  if (true) {
-		// 				    window.location = '';
-		// 				  }
-		// 		}) </script>";
-		// } else {
-		// 	echo "<script>
-		// 				Swal.fire({
-		// 				  position:'center',
-		// 				  width:'16em',
-		// 				  icon: 'error',	
-		// 				  text: 'Data tidak berhasil disimpan',
-		// 				  type: 'error',
-		// 				}).then(function (result) {
-		// 				  if (true) {
-		// 				    window.location = '';
-		// 				  }
-		// 		}) </script>";
-		// }
 	}
 }
 

@@ -4,7 +4,6 @@ class cDelete
 	function _dDeleteData($field, $value, $table)
 	{
 		$sqldel = "DELETE FROM " . $table . " WHERE " . $field . " = " . $value;
-		//echo "<br>".$sqldel."<br>";
 		$query = mysqli_query($GLOBALS["conn"], $sqldel);
 
 		if ($query) {
